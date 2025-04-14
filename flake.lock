@@ -1,5 +1,47 @@
 {
   "nodes": {
+    "firefox-addons": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1744621019,
+        "narHash": "sha256-8/uC2ZF2e6I87KRWN1FSspBteNQb5jwBc0NUKapkJBk=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "4b814dfe06a8b9703ad349abdb6ced18a213674f",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
+    "firefox-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744592674,
+        "narHash": "sha256-tkkUV4xF5u1vWP/F86U6vqEKBw6xU5KBYWN4NRVdFsI=",
+        "owner": "bandithedoge",
+        "repo": "nixpkgs-firefox-darwin",
+        "rev": "d2cd05ea97593054aa1cb1a4911ede6e4ceb77a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bandithedoge",
+        "repo": "nixpkgs-firefox-darwin",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -59,6 +101,8 @@
     },
     "root": {
       "inputs": {
+        "firefox-addons": "firefox-addons",
+        "firefox-darwin": "firefox-darwin",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs"

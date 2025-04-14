@@ -11,17 +11,32 @@
     # home-manager is used to manage my user
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # TODO: Do I want homebrew?
+    # nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    # nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Firefox?
+    firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+    firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Firefox addons
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
-    inputs@{
+    {
       self,
+      nixpkgs,
       nix-darwin,
       home-manager,
-      nixpkgs,
-    }:
+      firefox-darwin,
+      firefox-addons,
+      ...
+    }@inputs:
     let
-      configuration =
+      nix =
         { ... }:
         {
           # Necessary for using flakes on this system.
@@ -43,9 +58,21 @@
             min-free = ${toString (10 * 1024 * 1024 * 1024)}
             max-free = ${toString (30 * 1024 * 1024 * 1024)}
           '';
+        };
+      darwin =
+        { ... }:
+        {
+          # Set Git commit hash for darwin-version.
+          system.configurationRevision = self.rev or self.dirtyRev or null;
+          # Used for backwards compatibility, please read the changelog before changing.
+          # $ darwin-rebuild changelog
+          system.stateVersion = 6;
 
-          # Enable alternative shell support in nix-darwin.
-          programs.zsh.enable = true;
+          # Configure user
+          users.users.elias = {
+            name = "elias";
+            home = "/Users/elias";
+          };
 
           # Configure system settings
           system.defaults = {
@@ -82,6 +109,7 @@
             # Fast key repeats
             NSGlobalDomain.KeyRepeat = 2;
             NSGlobalDomain.InitialKeyRepeat = 15;
+            NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
             # Disable automatic helpers
             NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
@@ -98,18 +126,15 @@
             reattach = true;
           };
 
-          # Set Git commit hash for darwin-version.
-          system.configurationRevision = self.rev or self.dirtyRev or null;
+          # Enable alternative shell support in nix-darwin.
+          programs.zsh.enable = true;
 
-          # Used for backwards compatibility, please read the changelog before changing.
-          # $ darwin-rebuild changelog
-          system.stateVersion = 6;
-
-          # Configure user
-          users.users.elias = {
-            name = "elias";
-            home = "/Users/elias";
-          };
+          # TODO: If I need homebrew
+          # homebrew = {
+          #   enable = true;
+          #   onActivation.cleanup = "uninstall";
+          #   onActivation.upgrade = true;
+          # };
         };
     in
     {
@@ -120,18 +145,24 @@
         pkgs = import nixpkgs {
           system = "aarch64-darwin";
           config.allowUnfree = true;
+          overlays = [ firefox-darwin.overlay ];
         };
+
+        specialArgs = { inherit inputs; };
         modules = [
-          configuration
+          nix
+          darwin
           home-manager.darwinModules.home-manager
           {
+            nixpkgs.overlays = [ ];
+
             # Configure home-manager
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
             home-manager.users.elias = import ./home.nix;
           }
         ];
-        specialArgs = { inherit inputs; };
       };
     };
 }

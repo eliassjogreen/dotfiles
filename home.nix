@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   # Don't change this:
   home.stateVersion = "25.05";
@@ -10,64 +9,53 @@
   home.username = "elias";
   home.homeDirectory = "/Users/elias";
 
-  # Git
-  programs.git = {
-    enable = true;
-    extraConfig = { init.defaultBranch = "main"; };
-  };
-
-  # Zed
-  programs.zed-editor = {
-    enable = true;
-    extensions = [ "nix" ];
-
-    userSettings = {
-      auto_update = false;
-
-      lsp = {
-        nixd = {
-          initialization_options = {
-            formatting = { command = [ "nixfmt" ]; };
-          };
-        };
-      };
-
-      telemetry = {
-        diagnostics = false;
-        metrics = false;
-      };
-    };
-  };
+  imports = [
+    /Users/elias/Code/eliassjogreen/dotfiles/git.nix
+    /Users/elias/Code/eliassjogreen/dotfiles/zed.nix
+    /Users/elias/Code/eliassjogreen/dotfiles/firefox.nix
+  ];
 
   # Packages
   home.packages = with pkgs; [
+    # General utilities and common dependencies
     coreutils
     curl
     wget
     ripgrep
     jq
     nmap
-    hyperfine
     htop
     tree
-    git
     gnupg
     openssh
     openssl
     p7zip
     tokei
+    hyperfine
+
+    # Git
+    git
     gh
-    pandoc
-    typst
-    libreoffice-bin
-    hunspell
-    hunspellDicts.en_US
-    hunspellDicts.sv_SE
-    ffmpeg
-    gimp-with-plugins
-    inkscape-with-extensions
+
+    # # Office
+    # pandoc
+    # typst
+    # libreoffice-bin
+    # hunspell
+    # hunspellDicts.en_US
+    # hunspellDicts.sv_SE
+
+    # # Creative
+    # ffmpeg
+    # gimp-with-plugins
+    # inkscape-with-extensions
+
+    # Code
     zed-editor
     nixd
     nixfmt-rfc-style
+
+    # Firefox
+    firefox-bin
   ];
 }
