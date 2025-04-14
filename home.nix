@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Don't change this:
@@ -13,8 +13,29 @@
   # Git
   programs.git = {
     enable = true;
-    extraConfig = {
-      init.defaultBranch = "main";
+    extraConfig = { init.defaultBranch = "main"; };
+  };
+
+  # Zed
+  programs.zed-editor = {
+    enable = true;
+    extensions = [ "nix" ];
+
+    userSettings = {
+      auto_update = false;
+
+      lsp = {
+        nixd = {
+          initialization_options = {
+            formatting = { command = [ "nixfmt" ]; };
+          };
+        };
+      };
+
+      telemetry = {
+        diagnostics = false;
+        metrics = false;
+      };
     };
   };
 
@@ -45,5 +66,8 @@
     ffmpeg
     gimp-with-plugins
     inkscape-with-extensions
+    zed-editor
+    nixd
+    nixfmt-rfc-style
   ];
 }
