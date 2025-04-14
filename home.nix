@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 {
   # Don't change this:
   home.stateVersion = "25.05";
@@ -10,9 +13,9 @@
   home.homeDirectory = "/Users/elias";
 
   imports = [
-    /Users/elias/Code/eliassjogreen/dotfiles/git.nix
-    /Users/elias/Code/eliassjogreen/dotfiles/zed.nix
-    /Users/elias/Code/eliassjogreen/dotfiles/firefox.nix
+    ./git.nix
+    ./zed.nix
+    ./firefox.nix
   ];
 
   # Packages
@@ -37,6 +40,7 @@
     git
     gh
 
+    # TODO:
     # # Office
     # pandoc
     # typst
@@ -44,7 +48,6 @@
     # hunspell
     # hunspellDicts.en_US
     # hunspellDicts.sv_SE
-
     # # Creative
     # ffmpeg
     # gimp-with-plugins
@@ -56,6 +59,7 @@
     nixfmt-rfc-style
 
     # Firefox
+    defaultbrowser
     firefox-bin
   ];
 }

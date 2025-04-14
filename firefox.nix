@@ -1,13 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   lock-false = {
     Value = false;
     Status = "locked";
   };
-  lock-true = {
-    Value = true;
-    Status = "locked";
-  };
+  # https://mozilla.github.io/policy-templates/
   policies = {
     DisableTelemetry = true;
     DisableFirefoxStudies = true;
@@ -50,10 +47,24 @@ let
       "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
       "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
 
-      # Vertical tabs
-      "sidebar.revamp" = lock-true;
+      # Disable ai
+      "browser.ml.chat.enabled" = lock-false;
     };
   };
+  # Certain preferences can't be configured through policies, for those it is
+  # possible to instead use the `autoconf.js` script.
+  # https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig
+  autoconfig = ''
+    // Enable vertical tabs
+    lockPref("sidebar.revamp", true);
+    lockPref("sidebar.revamp.round-content-area", true);
+    lockPref("sidebar.verticalTabs", true);
+    lockPref("sidebar.main.tools", "");
+    lockPref("sidebar.expandOnHover", true);
+    lockPref("sidebar.expandOnHoverMessage.dismissed", true);
+    lockPref("sidebar.animation.expand-on-hover.duration-ms", 50);
+    lockPref("sidebar.visibility", "expand-on-hover");
+  '';
 in
 {
   programs.firefox = {
@@ -65,17 +76,21 @@ in
     package = (
       pkgs.firefox-bin.overrideAttrs (prevAttrs: {
         postInstall = ''
-          folder="$out/Applications/Firefox.app/Contents/Resources/distribution"
-          mkdir -p "$folder"
-          echo '${builtins.toJSON { policies = policies; }}' > "$folder/policies.json"
+          resources="$out/Applications/Firefox.app/Contents/Resources"
+          distribution="$resources/distribution"
+          mkdir -p "$distribution" "$resources/defaults/pref"
+          echo -e 'pref("general.config.filename", "firefox.cfg");\npref("general.config.obscure_value", 0);' > "$resources/defaults/pref/autoconfig.js"
+          echo -e '// IMPORTANT: Managed through Nix\n${autoconfig}' > "$resources/firefox.cfg"
+          echo '${builtins.toJSON { policies = policies; }}' > "$distribution/policies.json"
         '';
       })
     );
+  };
 
-    profiles.default = {
-      id = 0;
-      name = "default";
-      isDefault = true;
-    };
+  home.activation = {
+    # Set Firefox as the default browser
+    defaultBrowser = lib.hm.dag.entryAfter [ "installPackages" ] ''
+      ${lib.getExe pkgs.defaultbrowser} firefox
+    '';
   };
 }

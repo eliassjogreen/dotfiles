@@ -12,6 +12,12 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Needed for properly registering apps on darwin
+    # NOTE: Hopefully solved within nix-darwin soon, see
+    # https://github.com/nix-darwin/nix-darwin/pull/1396
+    mac-app-util.url = "github:hraban/mac-app-util/link-contents";
+    mac-app-util.inputs.nixpkgs.follows = "nixpkgs";
+
     # TODO: Do I want homebrew?
     # nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     # nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +37,7 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      mac-app-util,
       firefox-darwin,
       firefox-addons,
       ...
@@ -120,11 +127,19 @@
             NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
           };
 
+          system.activationScripts.postUserActivation.text = ''
+            # Immediately activate any changed settings
+            /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+          '';
+
           # Enable touch id for sudo
           security.pam.services.sudo_local = {
             touchIdAuth = true;
             reattach = true;
           };
+
+          # Set the default browser to firefox
+          # defaultbrowser firefox
 
           # Enable alternative shell support in nix-darwin.
           programs.zsh.enable = true;
@@ -152,14 +167,16 @@
         modules = [
           nix
           darwin
+          mac-app-util.darwinModules.default
           home-manager.darwinModules.home-manager
           {
-            nixpkgs.overlays = [ ];
-
             # Configure home-manager
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
+            home-manager.sharedModules = [ mac-app-util.homeManagerModules.default ];
+
+            # Configure my user
             home-manager.users.elias = import ./home.nix;
           }
         ];
