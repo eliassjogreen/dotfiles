@@ -10,7 +10,6 @@
     # This is the actual zed configuration
     userSettings = {
       auto_update = false;
-      restore_on_startup = "none";
 
       # Hide gitignored files
       project_panel = {
@@ -49,6 +48,19 @@
           initialization_options = {
             formatting = {
               command = [ "nixfmt" ];
+            };
+          };
+        };
+
+        yaml-language-server = {
+          settings = {
+            yaml = {
+              schemas = {
+                "https://taskfile.dev/schema.json" = [
+                  "Taskfile*.yml"
+                  "Taskfile*.yaml"
+                ];
+              };
             };
           };
         };
