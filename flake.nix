@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    # The Nix User Repository contains most Firefox addons among other things
+    nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
+
     # nix-darwin is used to manage my system
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,21 +25,17 @@
     # Firefox?
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Firefox addons
-    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
     {
       self,
       nixpkgs,
+      nur,
       nix-darwin,
       home-manager,
       mac-app-util,
       firefox-darwin,
-      firefox-addons,
       ...
     }@inputs:
     let
@@ -43,7 +43,7 @@
         { ... }:
         {
           # Necessary for using flakes on this system.
-          nix.settings.experimental-features = "nix-command flakes";
+          nix.settings.experimental-features = "nix-command flakes ca-derivations";
 
           # Make nix clean up after itself
           nix.gc = {
@@ -155,7 +155,10 @@
         pkgs = import nixpkgs {
           system = "aarch64-darwin";
           config.allowUnfree = true;
-          overlays = [ firefox-darwin.overlay ];
+          overlays = [
+            firefox-darwin.overlay
+            nur.overlays.default
+          ];
         };
 
         specialArgs = { inherit inputs; };

@@ -85,6 +85,25 @@ in
         '';
       })
     );
+
+    profiles.default = {
+      id = 0;
+      name = "Default";
+      isDefault = true;
+
+      extensions.packages = [
+        # Privacy
+        pkgs.nur.repos.rycee.firefox-addons.ublock-origin
+        pkgs.nur.repos.rycee.firefox-addons.privacy-badger
+        pkgs.nur.repos.ethancedwards8.firefox-addons.sponsorblock
+
+        # Password manager
+        pkgs.nur.repos.rycee.firefox-addons.bitwarden
+
+        # Enhancements
+        pkgs.nur.repos.rycee.firefox-addons.refined-github
+      ];
+    };
   };
 
   home.activation = {
