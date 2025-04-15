@@ -18,10 +18,6 @@
     mac-app-util.url = "github:hraban/mac-app-util/link-contents";
     mac-app-util.inputs.nixpkgs.follows = "nixpkgs";
 
-    # TODO: Do I want homebrew?
-    # nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    # nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
-
     # Firefox?
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -93,6 +89,12 @@
             dock.static-only = true;
             dock.tilesize = 32;
 
+            # Disable corner actions
+            dock.wvous-bl-corner = 1;
+            dock.wvous-br-corner = 1;
+            dock.wvous-tl-corner = 1;
+            dock.wvous-tr-corner = 1;
+
             # Sensible config for finder
             finder.AppleShowAllExtensions = true;
             finder.AppleShowAllFiles = true;
@@ -118,7 +120,7 @@
             NSGlobalDomain.InitialKeyRepeat = 15;
             NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
-            # Disable automatic helpers
+            # Disable automatic input helpers
             NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
             NSGlobalDomain.NSAutomaticDashSubstitutionEnabled = false;
             NSGlobalDomain.NSAutomaticInlinePredictionEnabled = false;
@@ -143,13 +145,6 @@
 
           # Enable alternative shell support in nix-darwin.
           programs.zsh.enable = true;
-
-          # TODO: If I need homebrew
-          # homebrew = {
-          #   enable = true;
-          #   onActivation.cleanup = "uninstall";
-          #   onActivation.upgrade = true;
-          # };
         };
     in
     {
