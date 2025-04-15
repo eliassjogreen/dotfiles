@@ -35,6 +35,7 @@
     p7zip
     tokei
     hyperfine
+    ncdu
 
     # Git
     git

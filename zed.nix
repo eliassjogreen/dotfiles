@@ -2,12 +2,20 @@
 {
   programs.zed-editor = {
     enable = true;
-    extensions = [ "nix" ];
+    extensions = [
+      "nix"
+      "git-firefly"
+    ];
 
     # This is the actual zed configuration
     userSettings = {
       auto_update = false;
       restore_on_startup = "none";
+
+      # Hide gitignored files
+      project_panel = {
+        hide_gitignore = true;
+      };
 
       # Enable copilot
       show_completions_on_input = true;
