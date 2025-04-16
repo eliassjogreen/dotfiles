@@ -204,7 +204,8 @@
         "mac-app-util": "mac-app-util",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
-        "nur": "nur"
+        "nur": "nur",
+        "zed-plex-mono": "zed-plex-mono"
       }
     },
     "systems": {
@@ -242,6 +243,22 @@
         "repo": "treefmt-nix",
         "type": "github"
       }
+    },
+    "zed-plex-mono": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./fonts/zed-plex-mono",
+        "type": "path"
+      },
+      "original": {
+        "path": "./fonts/zed-plex-mono",
+        "type": "path"
+      },
+      "parent": []
     }
   },
   "root": "root",

@@ -16,6 +16,7 @@
     ./git.nix
     ./zed.nix
     ./firefox.nix
+    ./wezterm.nix
   ];
 
   # Packages
@@ -55,6 +56,7 @@
     # inkscape-with-extensions
 
     # Code
+    wezterm
     zed-editor
     nixd
     nixfmt-rfc-style

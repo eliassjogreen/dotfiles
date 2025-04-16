@@ -25,6 +25,10 @@
     # Firefox?
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Custom fonts
+    zed-plex-mono.url = "path:./fonts/zed-plex-mono";
+    zed-plex-mono.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -36,6 +40,7 @@
       home-manager,
       mac-app-util,
       firefox-darwin,
+      zed-plex-mono,
       ...
     }@inputs:
     let
@@ -145,6 +150,11 @@
 
           # Enable alternative shell support in nix-darwin.
           programs.zsh.enable = true;
+
+          # Install fonts
+          fonts.packages = [
+            zed-plex-mono.packages.aarch64-darwin.default
+          ];
         };
     in
     {
