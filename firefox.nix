@@ -64,6 +64,9 @@ let
     lockPref("sidebar.expandOnHoverMessage.dismissed", true);
     lockPref("sidebar.animation.expand-on-hover.duration-ms", 50);
     lockPref("sidebar.visibility", "expand-on-hover");
+
+    // Enable tab groupos
+    lockPref("browser.tabs.groups.enabled", true);
   '';
 in
 {
