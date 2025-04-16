@@ -61,8 +61,11 @@
     nixd
     nixfmt-rfc-style
 
-    # Firefox
+    # Configuration
     defaultbrowser
+    duti
+
+    # Firefox
     firefox-bin
   ];
 }

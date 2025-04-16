@@ -102,6 +102,23 @@ in
 
         # Enhancements
         pkgs.nur.repos.rycee.firefox-addons.refined-github
+        (pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon rec {
+          pname = "besser-pinned-tabs";
+          version = "1.5.1";
+          addonId = "{bf5e830b-bda8-4a63-9b69-9bc67583efcd}";
+          url = "https://addons.mozilla.org/firefox/downloads/file/4441431/besser_pinned_tabs-${version}.xpi";
+          sha256 = "sha256-vI1QXZQ7J8t5sQmaZy+mFqL3r/gStHtvx4g6MmeUNzw=";
+          meta = with pkgs.lib; {
+            homepage = "https://github.com/RetroYogi/besser-pinned-tabs-firefox";
+            description = "Protects pinned tabs by opening new domain links in new tabs";
+            mozPermissions = [
+              "tabs"
+              "webNavigation"
+              "storage"
+            ];
+            platforms = platforms.all;
+          };
+        })
       ];
     };
   };
