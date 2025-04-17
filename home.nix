@@ -35,6 +35,11 @@
     # General utilities and common dependencies
     coreutils
 
+    # Privacy utilities
+    apg
+    gnupg
+    openssl
+
     # Performance utilities
     hyperfine
     htop
@@ -51,9 +56,7 @@
     nmap
     curl
     wget
-    gnupg
     openssh
-    openssl
     netcat
 
     # Configuration utilities
