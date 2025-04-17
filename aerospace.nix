@@ -43,10 +43,10 @@
 
       mode.main.binding = {
         # Focusing windows
-        alt-shift-left = "focus left";
-        alt-shift-down = "focus down";
-        alt-shift-up = "focus up";
-        alt-shift-right = "focus right";
+        ctrl-shift-left = "focus left";
+        ctrl-shift-down = "focus down";
+        ctrl-shift-up = "focus up";
+        ctrl-shift-right = "focus right";
 
         # Moving windows
         ctrl-alt-left = "move left";
@@ -58,9 +58,9 @@
         ctrl-alt-enter = "fullscreen";
 
         # Select workspace
-        alt-shift-q = "Q";
-        alt-shift-w = "W";
-        alt-shift-e = "E";
+        alt-shift-q = "workspace Q";
+        alt-shift-w = "workspace W";
+        alt-shift-e = "workspace E";
 
         # Toggle workspace
         alt-tab = "workspace-back-and-forth";
