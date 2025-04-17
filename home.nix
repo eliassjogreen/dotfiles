@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -17,26 +18,52 @@
     ./zed.nix
     ./firefox.nix
     ./wezterm.nix
+    ./aerospace.nix
   ];
+
+  # Fix zsh bindings
+  programs.zsh = {
+    enable = true;
+    initExtra = ''
+      bindkey ";3C" forward-word
+      bindkey ";3D" backward-word
+    '';
+  };
 
   # Packages
   home.packages = with pkgs; [
     # General utilities and common dependencies
     coreutils
-    curl
-    wget
+
+    # Performance utilities
+    hyperfine
+    htop
+
+    # File system utilities
     ripgrep
     jq
-    nmap
-    htop
     tree
+    ncdu
+    p7zip
+    tokei
+
+    # Internet and networking utilities
+    nmap
+    curl
+    wget
     gnupg
     openssh
     openssl
-    p7zip
-    tokei
-    hyperfine
-    ncdu
+    netcat
+
+    # Configuration utilities
+    defaultbrowser
+    duti
+
+    # Docker, containers and virtualization
+    colima
+    docker
+    docker-compose
 
     # Git
     git
@@ -55,17 +82,27 @@
     # gimp-with-plugins
     # inkscape-with-extensions
 
+    # Window manager
+    aerospace
+
     # Code
     wezterm
     zed-editor
     nixd
     nixfmt-rfc-style
 
-    # Configuration
-    defaultbrowser
-    duti
-
     # Firefox
     firefox-bin
   ];
+
+  launchd.agents = {
+    # Automatically start colima
+    colima = {
+      enable = true;
+      config = {
+        Program = lib.getExe pkgs.colima;
+        RunAtLoad = true;
+      };
+    };
+  };
 }

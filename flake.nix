@@ -44,6 +44,16 @@
       ...
     }@inputs:
     let
+      disableHotKeys =
+        ints:
+        builtins.listToAttrs (
+          map (n: {
+            name = toString n;
+            value = {
+              enabled = false;
+            };
+          }) ints
+        );
       nix =
         { ... }:
         {
@@ -132,6 +142,35 @@
             NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;
             NSGlobalDomain.NSAutomaticQuoteSubstitutionEnabled = false;
             NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
+
+            # Disable font smooting
+            NSGlobalDomain.AppleFontSmoothing = 0;
+
+            CustomUserPreferences = {
+              # Disable hotkeys
+              "com.apple.symbolichotkeys" = {
+                AppleSymbolicHotKeys = disableHotKeys [
+                  233
+                  235
+                  237
+                  238
+                  239
+                  240
+                  241
+                  242
+                  243
+                  244
+                  245
+                  246
+                  247
+                  248
+                  249
+                  250
+                  251
+                  256
+                ];
+              };
+            };
           };
 
           system.activationScripts.postUserActivation.text = ''
@@ -144,9 +183,6 @@
             touchIdAuth = true;
             reattach = true;
           };
-
-          # Set the default browser to firefox
-          # defaultbrowser firefox
 
           # Enable alternative shell support in nix-darwin.
           programs.zsh.enable = true;
