@@ -37,6 +37,7 @@
 
     # Privacy utilities
     apg
+    age
     gnupg
     openssl
 
