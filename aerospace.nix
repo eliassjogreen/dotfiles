@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ ... }:
 {
   programs.aerospace = {
     enable = true;
@@ -15,7 +15,39 @@
         outer.right = 8;
       };
 
+      # Workspace:
+      # "Q" - Terminal
+      # "W" - Web
+      # "E" - Editor
+
+      on-window-detected = [
+        {
+          "if" = {
+            app-id = "com.github.wez.wezterm";
+          };
+          run = "move-node-to-workspace Q";
+        }
+        {
+          "if" = {
+            app-id = "org.mozilla.firefox";
+          };
+          run = "move-node-to-workspace W";
+        }
+        {
+          "if" = {
+            app-id = "dev.zed.Zed";
+          };
+          run = "move-node-to-workspace E";
+        }
+      ];
+
       mode.main.binding = {
+        # Focusing windows
+        alt-shift-left = "focus left";
+        alt-shift-down = "focus down";
+        alt-shift-up = "focus up";
+        alt-shift-right = "focus right";
+
         # Moving windows
         ctrl-alt-left = "move left";
         ctrl-alt-down = "move down";
@@ -25,33 +57,64 @@
         # Toggle fullscreen
         ctrl-alt-enter = "fullscreen";
 
-        # Toggle floating window
-        ctrl-alt-p = "layout floating tiling";
+        # Select workspace
+        alt-shift-q = "Q";
+        alt-shift-w = "W";
+        alt-shift-e = "E";
 
-        # Create a new window inheriting cwd
+        # Toggle workspace
+        alt-tab = "workspace-back-and-forth";
+
+        # Create a new window from existing one using menu as to ensure we
+        # inherit cwd for terminals.
         ctrl-alt-n = ''
           exec-and-forget osascript -e '
-          tell application "System Events" to tell (first process whose frontmost is true)
-              click menu item "New Window" of menu "Shell" of menu bar 1
+          tell application "System Events"
+            tell (first process whose frontmost is true)
+              -- Create a new window from the frontmost
+              if name is "WezTerm" then
+                click menu item "New Window" of menu "Shell" of menu bar 1
+              else if name is "Firefox" then
+                click menu item "New Window" of menu "File" of menu bar 1
+              else if name is "Zed" then
+                click menu item "New Window" of menu "File" of menu bar 1
+              else
+                -- Huh, an unrecognized application, lets try some common menus
+                repeat with menuName in {"Shell", "File"}
+                  try
+                    click menu item "New Window" of menu menuName of menu bar 1
+                    exit repeat
+                  end try
+                end repeat
+              end if
+
+              -- Bring the newly opened application to front
               set frontmost to true
+            end tell
           end tell
           '
         '';
 
-        # Mode select
-        ctrl-alt-period = "mode main";
-        ctrl-alt-comma = "mode join";
+        alt-shift-comma = "mode service";
       };
 
-      mode.join.binding = {
-        ctrl-alt-left = "join-with left";
-        ctrl-alt-down = "join-with down";
-        ctrl-alt-up = "join-with up";
-        ctrl-alt-right = "join-with right";
-
-        # Mode select
-        ctrl-alt-period = "mode main";
-        ctrl-alt-comma = "mode join";
+      mode.service.binding = {
+        esc = [
+          "reload-config"
+          "mode main"
+        ];
+        r = [
+          "flatten-workspace-tree"
+          "mode main"
+        ];
+        f = [
+          "layout floating tiling"
+          "mode main"
+        ];
+        backspace = [
+          "close-all-windows-but-current"
+          "mode main"
+        ];
       };
     };
   };
