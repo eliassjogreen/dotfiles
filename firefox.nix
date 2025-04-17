@@ -52,7 +52,7 @@ let
     };
   };
   # Certain preferences can't be configured through policies, for those it is
-  # possible to instead use the `autoconf.js` script.
+  # possible to instead use the `autoconfig.js` script.
   # https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig
   autoconfig = ''
     // Enable vertical tabs
@@ -103,6 +103,28 @@ in
         # Password manager
         pkgs.nur.repos.rycee.firefox-addons.bitwarden
 
+        # Code
+        (pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon rec {
+          pname = "preact-devtools";
+          version = "4.7.2";
+          addonId = "devtools@marvinh.dev";
+          url = "https://addons.mozilla.org/firefox/downloads/file/4269987/preact_devtools-${version}.xpi";
+          sha256 = "sha256-iMalYgJGvZZfu7LhpMLjLT4rZRSHQ0v69E9ofxLDtK0=";
+          meta = with pkgs.lib; {
+            homepage = "https://github.com/preactjs/preact-devtools";
+            description = "Browser extension that allows you to inspect a Preact component hierarchy, including props and state.";
+            mozPermissions = [
+              "<all_urls>"
+              "scripting"
+              "storage"
+              "devtools"
+              "clipboardWrite"
+            ];
+            license = licenses.mit;
+            platforms = platforms.all;
+          };
+        })
+
         # Enhancements
         pkgs.nur.repos.rycee.firefox-addons.refined-github
         (pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon rec {
@@ -115,6 +137,7 @@ in
             homepage = "https://github.com/RetroYogi/besser-pinned-tabs-firefox";
             description = "Protects pinned tabs by opening new domain links in new tabs";
             mozPermissions = [
+              "<all_urls>"
               "tabs"
               "webNavigation"
               "storage"
