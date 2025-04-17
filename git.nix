@@ -20,6 +20,10 @@ in
     userName = "Elias Sjögreen";
     userEmail = "eliassjogreen1@gmail.com";
 
+    # Configure signing
+    signing.key = "A80BDCE5B456BF24";
+    signing.signByDefault = true;
+
     # Configure custom email per directory
     includes = [
       {
