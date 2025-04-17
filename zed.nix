@@ -5,6 +5,7 @@
     extensions = [
       "nix"
       "git-firefly"
+      "terraform"
     ];
 
     # This is the actual zed configuration
