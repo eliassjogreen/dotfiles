@@ -63,7 +63,7 @@
         alt-shift-e = "workspace E";
 
         # Toggle workspace
-        alt-tab = "workspace-back-and-forth";
+        alt-shift-tab = "workspace-back-and-forth";
 
         # Create a new window from existing one using menu as to ensure we
         # inherit cwd for terminals.

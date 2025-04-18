@@ -21,13 +21,53 @@
     ./aerospace.nix
   ];
 
-  # Fix zsh bindings
+  # Configure zsh
   programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    envExtra = ''
+      # Set default editor
+      export EDITOR=zeditor
+    '';
+
     initExtra = ''
+      # Fix bindings
       bindkey ";3C" forward-word
       bindkey ";3D" backward-word
+
+      # Replace cd with zoxide
+      eval "$(zoxide init --cmd=cd zsh)"
+
+      # Enable direnv
+      eval "$(direnv hook zsh)"
+
+      # Enable starship
+      eval "$(starship init zsh)"
     '';
+
+    shellAliases = {
+      ls = "eza";
+      ll = "ls -lah";
+      cat = "bat";
+      diff = "difftastic";
+      code = "zeditor";
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      "...." = "cd ../../..";
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
   };
 
   # Packages
@@ -89,8 +129,19 @@
     # Window manager
     aerospace
 
-    # Code
+    # Terminal and shell
     wezterm
+    zsh
+    starship
+    direnv
+
+    # Nicer tools
+    eza
+    zoxide
+    bat
+    difftastic
+
+    # Code
     zed-editor
     nixd
     nixfmt-rfc-style

@@ -13,8 +13,13 @@ in
     lfs.enable = true;
     diff-so-fancy.enable = true;
 
-    # Load global gitignore from githubs own list
-    ignores = [ (builtins.readFile "${gitignore}/Global/macOS.gitignore") ];
+    ignores = [
+      # Load global gitignore from githubs own list
+      (builtins.readFile "${gitignore}/Global/macOS.gitignore")
+      # Ignore direnv
+      "/.envrc"
+      ".direnv/"
+    ];
 
     # Configure default user name and email
     userName = "Elias Sjögreen";
