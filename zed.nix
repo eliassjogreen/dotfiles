@@ -6,6 +6,7 @@
       "nix"
       "git-firefly"
       "terraform"
+      "toml"
     ];
 
     # This is the actual zed configuration

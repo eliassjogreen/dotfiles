@@ -29,6 +29,9 @@
     syntaxHighlighting.enable = true;
 
     envExtra = ''
+      # Needed for certain rust projects
+      export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig"
+
       # Set default editor
       export EDITOR=zeditor
     '';
@@ -74,6 +77,7 @@
   home.packages = with pkgs; [
     # General utilities and common dependencies
     coreutils
+    pkg-config
 
     # Privacy utilities
     apg
@@ -84,6 +88,7 @@
     # Performance utilities
     hyperfine
     htop
+    samply
 
     # File system utilities
     ripgrep
@@ -112,6 +117,10 @@
     # Git
     git
     gh
+
+    # Rust
+    rustup
+    cargo-binstall
 
     # TODO:
     # # Office
