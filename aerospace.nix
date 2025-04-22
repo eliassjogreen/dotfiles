@@ -1,5 +1,15 @@
-{ ... }:
+{ lib, pkgs, ... }:
 {
+  # Enable jankyborders
+  services.jankyborders = {
+    enable = true;
+    settings = {
+      hidpi = "on";
+      active_color = "0xffffffff";
+      inactive_color = "0x00ffffff";
+    };
+  };
+
   programs.aerospace = {
     enable = true;
 
@@ -14,6 +24,10 @@
         outer.top = 8;
         outer.right = 8;
       };
+
+      after-startup-command = [
+        "exec-and-forget ${lib.getExe pkgs.jankyborders}"
+      ];
 
       # Workspace:
       # "Q" - Terminal
@@ -33,6 +47,13 @@
           };
           check-further-callbacks = true;
           run = "move-node-to-workspace W";
+        }
+        {
+          "if" = {
+            app-id = "org.mozilla.firefox";
+            window-title-regex-substring = "Private Browsing";
+          };
+          run = "layout floating";
         }
         {
           "if" = {
@@ -122,6 +143,10 @@
           "reload-config"
           "mode main"
         ];
+        left = "resize width +50";
+        right = "resize width -50";
+        up = "resize height +50";
+        down = "resize height -50";
         r = [
           "flatten-workspace-tree"
           "mode main"
@@ -137,4 +162,8 @@
       };
     };
   };
+
+  home.activation.aerospace = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${lib.getExe pkgs.aerospace} reload-config
+  '';
 }

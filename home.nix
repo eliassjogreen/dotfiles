@@ -137,6 +137,7 @@
 
     # Window manager
     aerospace
+    jankyborders
 
     # Terminal and shell
     wezterm
