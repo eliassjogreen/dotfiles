@@ -31,6 +31,7 @@
           "if" = {
             app-id = "org.mozilla.firefox";
           };
+          check-further-callbacks = true;
           run = "move-node-to-workspace W";
         }
         {
@@ -48,6 +49,12 @@
         {
           "if" = {
             app-id = "com.apple.finder";
+          };
+          run = "layout floating";
+        }
+        {
+          "if" = {
+            app-id = "com.apple.mail";
           };
           run = "layout floating";
         }
