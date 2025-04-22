@@ -10,6 +10,9 @@
       -- Disable tab bar
       config.enable_tab_bar = false;
 
+      -- Disable window decorations
+      config.window_decorations = "RESIZE";
+
       -- Configure font
       config.font = wezterm.font 'Zed Plex Mono'
 
