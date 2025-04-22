@@ -39,6 +39,18 @@
           };
           run = "move-node-to-workspace E";
         }
+        {
+          "if" = {
+            app-id = "com.apple.systempreferences";
+          };
+          run = "layout floating";
+        }
+        {
+          "if" = {
+            app-id = "com.apple.finder";
+          };
+          run = "layout floating";
+        }
       ];
 
       mode.main.binding = {
