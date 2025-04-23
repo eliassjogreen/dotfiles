@@ -1,4 +1,40 @@
 { lib, pkgs, ... }:
+let
+  open_new_window = ''
+    exec-and-forget osascript -e '
+    tell application "System Events"
+      tell (first process whose frontmost is true)
+        -- Create a new window from the frontmost
+        if name is "WezTerm" then
+          click menu item "New Window" of menu "Shell" of menu bar 1
+        else if name is "Firefox" then
+          click menu item "New Window" of menu "File" of menu bar 1
+        else if name is "Zed" then
+          click menu item "New Window" of menu "File" of menu bar 1
+        else
+          -- Huh, an unrecognized application, lets try some common menus
+          repeat with menuName in {"Shell", "File"}
+            try
+              click menu item "New Window" of menu menuName of menu bar 1
+              exit repeat
+            end try
+          end repeat
+        end if
+
+        -- Bring the newly opened application to front
+        set frontmost to true
+      end tell
+    end tell
+    '
+  '';
+  center_window = ''
+    exec-and-forget osascript -e '
+    tell application "System Events" to tell (first process whose frontmost is true)
+      click menu item "Center" of menu "Window" of menu bar 1
+    end tell
+    '
+  '';
+in
 {
   # Enable jankyborders
   services.jankyborders = {
@@ -107,33 +143,16 @@
 
         # Create a new window from existing one using menu as to ensure we
         # inherit cwd for terminals.
-        ctrl-alt-n = ''
-          exec-and-forget osascript -e '
-          tell application "System Events"
-            tell (first process whose frontmost is true)
-              -- Create a new window from the frontmost
-              if name is "WezTerm" then
-                click menu item "New Window" of menu "Shell" of menu bar 1
-              else if name is "Firefox" then
-                click menu item "New Window" of menu "File" of menu bar 1
-              else if name is "Zed" then
-                click menu item "New Window" of menu "File" of menu bar 1
-              else
-                -- Huh, an unrecognized application, lets try some common menus
-                repeat with menuName in {"Shell", "File"}
-                  try
-                    click menu item "New Window" of menu menuName of menu bar 1
-                    exit repeat
-                  end try
-                end repeat
-              end if
+        ctrl-alt-n = open_new_window;
 
-              -- Bring the newly opened application to front
-              set frontmost to true
-            end tell
-          end tell
-          '
-        '';
+        # Toggle "scratchpad"
+        ctrl-alt-p = [
+          "layout floating tiling"
+          # TODO: Only do this if we are not floating. I may have to do some
+          # applescript magic or wait for aerospace to support listing window
+          # layouts
+          center_window
+        ];
 
         alt-shift-comma = "mode service";
       };
@@ -143,10 +162,10 @@
           "reload-config"
           "mode main"
         ];
-        left = "resize width +50";
-        right = "resize width -50";
-        up = "resize height +50";
-        down = "resize height -50";
+        left = "resize width -50";
+        right = "resize width +50";
+        up = "resize height -50";
+        down = "resize height +50";
         r = [
           "flatten-workspace-tree"
           "mode main"
