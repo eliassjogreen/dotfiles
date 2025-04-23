@@ -33,23 +33,38 @@ in
     includes = [
       {
         condition = "hasconfig:remote.*.url:git@github.com:5monkeys/*";
-        contents.user.email = "elias@5monkeys.se";
+        contents.user = {
+          email = "elias@5monkeys.se";
+          signingKey = "DD8281944190F57C";
+        };
       }
       {
         condition = "hasconfig:remote.*.url:git@github.com:5m/*";
-        contents.user.email = "elias@5monkeys.se";
+        contents.user = {
+          email = "elias@5monkeys.se";
+          signingKey = "DD8281944190F57C";
+        };
       }
       {
         condition = "hasconfig:remote.*.url:git@github.com:FinnishRail/*";
-        contents.user.email = "elias@5monkeys.se";
+        contents.user = {
+          email = "elias@5monkeys.se";
+          signingKey = "DD8281944190F57C";
+        };
       }
       {
         condition = "hasconfig:remote.*.url:git@github.com:dorunner/*";
-        contents.user.email = "elias@5monkeys.se";
+        contents.user = {
+          email = "elias@5monkeys.se";
+          signingKey = "DD8281944190F57C";
+        };
       }
       {
         condition = "hasconfig:remote.*.url:git@github.com:mrfridayab/*";
-        contents.user.email = "elias@scalability.se";
+        contents.user = {
+          email = "elias@scalability.se";
+          signingKey = "17F4437F2DF8B412";
+        };
       }
     ];
 
