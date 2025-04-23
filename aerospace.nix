@@ -30,6 +30,7 @@ let
   center_window = ''
     exec-and-forget osascript -e '
     tell application "System Events" to tell (first process whose frontmost is true)
+      set size of front window to {800, 600}
       click menu item "Center" of menu "Window" of menu bar 1
     end tell
     '
