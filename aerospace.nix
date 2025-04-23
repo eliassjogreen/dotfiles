@@ -94,6 +94,20 @@ in
         }
         {
           "if" = {
+            app-id = "org.mozilla.firefox";
+            window-title-regex-substring = "^Removing Cookies and Site Data$";
+          };
+          run = "layout floating";
+        }
+        {
+          "if" = {
+            app-id = "org.mozilla.firefox";
+            window-title-regex-substring = "^Huddle:";
+          };
+          run = "layout floating";
+        }
+        {
+          "if" = {
             app-id = "dev.zed.Zed";
           };
           run = "move-node-to-workspace E";
