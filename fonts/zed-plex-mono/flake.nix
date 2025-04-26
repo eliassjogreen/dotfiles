@@ -28,7 +28,7 @@
             src = pkgs.fetchgit {
               url = "https://github.com/zed-industries/zed.git";
               rev = "refs/tags/${version}";
-              sha256 = "sha256-gkbiV0kfeM1Ito8jVOBVneNjaXCA4PFayXJLIUmjqn4=";
+              sha256 = "sha256-zgTOMfO3hhbWsw5nVQYu8UN5YX1JsDNZ3fC4ssujakI=";
               sparseCheckout = [ directory ];
             };
             phases = [ "installPhase" ];

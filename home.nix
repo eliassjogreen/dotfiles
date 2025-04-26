@@ -36,7 +36,7 @@
       export EDITOR=zeditor
     '';
 
-    initExtra = ''
+    initContent = ''
       # Fix bindings
       bindkey ";3C" forward-word
       bindkey ";3D" backward-word
