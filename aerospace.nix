@@ -153,6 +153,20 @@ in
         alt-shift-w = "workspace W";
         alt-shift-e = "workspace E";
 
+        # Move to workspace
+        alt-shift-cmd-q = [
+          "move-node-to-workspace Q"
+          "workspace Q"
+        ];
+        alt-shift-cmd-w = [
+          "move-node-to-workspace W"
+          "workspace W"
+        ];
+        alt-shift-cmd-e = [
+          "move-node-to-workspace E"
+          "workspace E"
+        ];
+
         # Toggle workspace
         alt-shift-tab = "workspace-back-and-forth";
 
@@ -196,8 +210,4 @@ in
       };
     };
   };
-
-  home.activation.aerospace = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ${lib.getExe pkgs.aerospace} reload-config
-  '';
 }
