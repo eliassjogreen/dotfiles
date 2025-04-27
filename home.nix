@@ -158,6 +158,9 @@
 
     # Firefox
     firefox-bin
+
+    # Maker and creative stuff
+    kicad
   ];
 
   launchd.agents = {
