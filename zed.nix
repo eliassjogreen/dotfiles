@@ -7,6 +7,7 @@
       "git-firefly"
       "terraform"
       "toml"
+      "deno"
     ];
 
     # This is the actual zed configuration
@@ -42,6 +43,25 @@
             "!nil"
           ];
         };
+
+        TypeScript = {
+          language_servers = [
+            "deno"
+            "!typescript-language-server"
+            "!vtsls"
+            "!eslint"
+          ];
+          formatter = "language_server";
+        };
+        TSX = {
+          language_servers = [
+            "deno"
+            "!typescript-language-server"
+            "!vtsls"
+            "!eslint"
+          ];
+          formatter = "language_server";
+        };
       };
 
       # Configure LSPs
@@ -63,6 +83,14 @@
                   "Taskfile*.yaml"
                 ];
               };
+            };
+          };
+        };
+
+        deno = {
+          settings = {
+            deno = {
+              enable = true;
             };
           };
         };
