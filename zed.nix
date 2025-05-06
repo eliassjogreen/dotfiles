@@ -44,24 +44,26 @@
           ];
         };
 
-        TypeScript = {
-          language_servers = [
-            "deno"
-            "!typescript-language-server"
-            "!vtsls"
-            "!eslint"
-          ];
-          formatter = "language_server";
-        };
-        TSX = {
-          language_servers = [
-            "deno"
-            "!typescript-language-server"
-            "!vtsls"
-            "!eslint"
-          ];
-          formatter = "language_server";
-        };
+        # NOTE: Deno gets enabled on a per-project basis as it is a far more
+        # uncommon runtime than Node.
+        # TypeScript = {
+        #   language_servers = [
+        #     "deno"
+        #     "!typescript-language-server"
+        #     "!vtsls"
+        #     "!eslint"
+        #   ];
+        #   formatter = "language_server";
+        # };
+        # TSX = {
+        #   language_servers = [
+        #     "deno"
+        #     "!typescript-language-server"
+        #     "!vtsls"
+        #     "!eslint"
+        #   ];
+        #   formatter = "language_server";
+        # };
       };
 
       # Configure LSPs
@@ -87,13 +89,14 @@
           };
         };
 
-        deno = {
-          settings = {
-            deno = {
-              enable = true;
-            };
-          };
-        };
+        # NOTE: See note
+        # deno = {
+        #   settings = {
+        #     deno = {
+        #       enable = true;
+        #     };
+        #   };
+        # };
       };
 
       # Disable telemetry

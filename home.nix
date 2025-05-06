@@ -55,7 +55,7 @@
       ls = "eza";
       ll = "ls -lah";
       cat = "bat";
-      diff = "difftastic";
+      diff = "difft";
       code = "zeditor";
       ".." = "cd ..";
       "..." = "cd ../..";
@@ -158,9 +158,6 @@
 
     # Firefox
     firefox-bin
-
-    # Maker and creative stuff
-    kicad
   ];
 
   launchd.agents = {

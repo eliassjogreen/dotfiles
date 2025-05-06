@@ -19,6 +19,7 @@ in
       # Ignore direnv
       "/.envrc"
       ".direnv/"
+      ".zed/"
     ];
 
     # Configure default user name and email
