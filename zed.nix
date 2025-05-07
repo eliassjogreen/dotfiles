@@ -8,6 +8,7 @@
       "terraform"
       "toml"
       "deno"
+      "dockerfile"
     ];
 
     # This is the actual zed configuration
