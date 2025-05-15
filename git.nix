@@ -72,6 +72,11 @@ in
     # Some useful aliases
     aliases = {
       undo = "reset HEAD~1 --mixed";
+      latest-release = "!git tag --sort=committerdate | tail -1 | sed -n 's|releases/\\(.*\\)|\\1|p'";
+      next-release = "!if [[ \"$(git latest-release | cut -d '.' -f -2)\" == \"$(date '+%y.%m')\" ]]; then git latest-release | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g' ; else date '+%y.%m.1'; fi";
+      changelog = "!git fetch origin -q && git --no-pager log --first-parent --pretty=\"- [ ] %h - %s (%an)\" \"origin/\${1:-main}..origin/\${2:-dev}\" #";
+      release = "!gh pr create --base \${1:-main} --head \${2:-dev} --title \"$(git next-release)\" --body \"$(git changelog $1 $2)\" #";
+      nuke = "!git clean -xfd && git submodule foreach --recursive git clean -xfd && git reset --hard && git submodule foreach --recursive git reset --hard && git submodule update --init --recursive";
     };
 
     # Some sensible defaults
