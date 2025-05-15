@@ -9,30 +9,35 @@
       "toml"
       "deno"
       "dockerfile"
+      "wakatime"
     ];
 
     # This is the actual zed configuration
     userSettings = {
       auto_update = false;
 
-      # Hide gitignored files
-      project_panel = {
-        hide_gitignore = true;
-      };
-
       # Enable copilot
-      show_completions_on_input = true;
       edit_predictions = {
         mode = "subtle";
+      };
+
+      features = {
+        edit_prediction_provider = "copilot";
       };
 
       # Configure the default assistant
       assistant = {
         enabled = true;
         version = "2";
+
         default_model = {
-          provider = "copilot_chat";
-          model = "gpt-4o";
+          provider = "ollama";
+          model = "qwen3:latest";
+        };
+
+        inline_assistant_model = {
+          provider = "ollama";
+          model = "qwen3:latest";
         };
       };
 

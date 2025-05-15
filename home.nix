@@ -30,7 +30,9 @@
 
     envExtra = ''
       # Needed for certain rust projects
-      export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig"
+      export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig";
+      export RUSTFLAGS="-L${pkgs.libiconv}/lib";
+      export LLVM_SYS_140_PREFIX="${pkgs.llvmPackages_14.llvm.dev}";
 
       # Set default editor
       export EDITOR=zeditor
@@ -78,6 +80,8 @@
     # General utilities and common dependencies
     coreutils
     pkg-config
+    clang
+    libiconv
 
     # Privacy utilities
     apg
@@ -104,6 +108,9 @@
     wget
     openssh
     netcat
+
+    # AI/ML
+    ollama
 
     # Configuration utilities
     defaultbrowser
