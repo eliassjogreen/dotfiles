@@ -1,22 +1,26 @@
 { pkgs, lib, ... }:
 let
+  lock-true = {
+    Value = true;
+    Status = "locked";
+  };
   lock-false = {
     Value = false;
     Status = "locked";
   };
   # https://mozilla.github.io/policy-templates/
   policies = {
-    DisableTelemetry = true;
-    DisableFirefoxStudies = true;
+    DisableTelemetry = lock-true;
+    DisableFirefoxStudies = lock-true;
     EnableTrackingProtection = {
-      Value = true;
-      Locked = true;
-      Cryptomining = true;
-      Fingerprinting = true;
+      Value = lock-true;
+      Locked = lock-true;
+      Cryptomining = lock-true;
+      Fingerprinting = lock-true;
     };
-    DisablePocket = true;
-    DisableFirefoxAccounts = true;
-    DisableAccounts = true;
+    DisablePocket = lock-true;
+    DisableFirefoxAccounts = lock-true;
+    DisableAccounts = lock-true;
     DisplayBookmarksToolbar = "never";
     SearchBar = "unified";
 
