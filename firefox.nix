@@ -81,7 +81,12 @@ in
     # property because of an issue with the nixpkgs-firefox-darwin overlay.
     # See https://github.com/bandithedoge/nixpkgs-firefox-darwin/issues/7
     package = (
-      pkgs.firefox-bin.overrideAttrs (prevAttrs: {
+      pkgs.firefox-bin.overrideAttrs (_: rec {
+        # Theres a annoying-as-fuck bug with home-manager where the firefox
+        # overlay fails to evaluate if bandithedoge/nixpkgs-firefox-darwin is
+        # used. See:
+        # https://github.com/nix-community/home-manager/issues/6955#issuecomment-2878146879
+        override = _: pkgs.firefox-bin;
         postInstall = ''
           resources="$out/Applications/Firefox.app/Contents/Resources"
           distribution="$resources/distribution"

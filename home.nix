@@ -168,7 +168,7 @@
   ];
 
   # Automatically start the ollama daemon
-  services.ollama.enable = true;
+  # services.ollama.enable = true;
 
   launchd.agents = {
     # Automatically start colima

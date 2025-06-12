@@ -91,6 +91,7 @@
             name = "elias";
             home = "/Users/elias";
           };
+          system.primaryUser = "elias";
 
           # Configure system settings
           system.defaults = {
@@ -172,11 +173,6 @@
               };
             };
           };
-
-          system.activationScripts.postUserActivation.text = ''
-            # Immediately activate any changed settings
-            /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-          '';
 
           # Enable touch id for sudo
           security.pam.services.sudo_local = {

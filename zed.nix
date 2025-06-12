@@ -10,6 +10,8 @@
       "deno"
       "dockerfile"
       "wakatime"
+      "sql"
+      "jinja2"
     ];
 
     # This is the actual zed configuration
@@ -31,13 +33,13 @@
         version = "2";
 
         default_model = {
-          provider = "ollama";
-          model = "qwen3:latest";
+          provider = "anthropic";
+          model = "claude-3-7-sonnet-latest";
         };
 
-        inline_assistant_model = {
-          provider = "ollama";
-          model = "qwen3:latest";
+        editor_model = {
+          provider = "anthropic";
+          model = "claude-3-7-sonnet-latest";
         };
       };
 
