@@ -157,6 +157,7 @@
     zoxide
     bat
     difftastic
+    typos
 
     # Code
     zed-editor
