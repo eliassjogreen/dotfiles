@@ -12,6 +12,7 @@
       "wakatime"
       "sql"
       "jinja2"
+      "astro"
     ];
 
     # This is the actual zed configuration
