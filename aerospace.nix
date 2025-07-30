@@ -95,6 +95,13 @@ in
         {
           "if" = {
             app-id = "org.mozilla.firefox";
+            window-title-regex-substring = "Picture-in-Picture";
+          };
+          run = "layout floating";
+        }
+        {
+          "if" = {
+            app-id = "org.mozilla.firefox";
             window-title-regex-substring = "^Removing Cookies and Site Data$";
           };
           run = "layout floating";
