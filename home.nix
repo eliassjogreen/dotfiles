@@ -129,19 +129,6 @@
     rustup
     cargo-binstall
 
-    # TODO:
-    # # Office
-    # pandoc
-    # typst
-    # libreoffice-bin
-    # hunspell
-    # hunspellDicts.en_US
-    # hunspellDicts.sv_SE
-    # # Creative
-    # ffmpeg
-    # gimp-with-plugins
-    # inkscape-with-extensions
-
     # Window manager
     aerospace
     jankyborders
@@ -163,6 +150,20 @@
     zed-editor
     nixd
     nixfmt-rfc-style
+
+    # Note taking, office and educational tools
+    obsidian
+    # TODO:
+    # pandoc
+    # typst
+    # libreoffice-bin
+    # hunspell
+    # hunspellDicts.en_US
+    # hunspellDicts.sv_SE
+    # # Creative
+    # ffmpeg
+    # gimp-with-plugins
+    # inkscape-with-extensions
 
     # Firefox
     firefox-bin

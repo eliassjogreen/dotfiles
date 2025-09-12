@@ -157,6 +157,9 @@ in
             platforms = platforms.all;
           };
         })
+
+        # Note taking, office and educational tools
+        pkgs.nur.repos.rycee.firefox-addons.web-clipper-obsidian
       ];
     };
   };
