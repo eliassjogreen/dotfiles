@@ -16,7 +16,7 @@
   imports = [
     ./git.nix
     ./zed.nix
-    ./firefox.nix
+    # ./firefox.nix
     ./wezterm.nix
     ./aerospace.nix
   ];
@@ -31,8 +31,8 @@
     envExtra = ''
       # Needed for certain rust projects
       export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig";
-      export RUSTFLAGS="-L${pkgs.libiconv}/lib";
-      export LLVM_SYS_140_PREFIX="${pkgs.llvmPackages_14.llvm.dev}";
+      export RUSTFLAGS="-L${pkgs.libiconv}/lib -L${pkgs.zlib}/lib";
+      export LLVM_SYS_200_PREFIX="${pkgs.llvmPackages_20.llvm.dev}";
 
       # Set default editor
       export EDITOR=zeditor
@@ -112,6 +112,7 @@
 
     # AI/ML
     ollama
+    claude-code
 
     # Configuration utilities
     defaultbrowser
