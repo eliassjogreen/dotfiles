@@ -29,16 +29,11 @@
       };
 
       # Configure the default assistant
-      assistant = {
-        enabled = true;
-        version = "2";
+      agent = {
+        enable_feedback = false;
+        play_sound_when_agent_done = false;
 
         default_model = {
-          provider = "anthropic";
-          model = "claude-3-7-sonnet-latest";
-        };
-
-        editor_model = {
           provider = "anthropic";
           model = "claude-3-7-sonnet-latest";
         };
