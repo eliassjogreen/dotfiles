@@ -110,6 +110,7 @@ in
         # Privacy
         pkgs.nur.repos.rycee.firefox-addons.ublock-origin
         pkgs.nur.repos.rycee.firefox-addons.privacy-badger
+        pkgs.nur.repos.rycee.firefox-addons.consent-o-matic
         pkgs.nur.repos.ethancedwards8.firefox-addons.sponsorblock
 
         # Password manager
