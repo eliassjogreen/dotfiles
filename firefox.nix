@@ -80,26 +80,20 @@ in
     # NOTE: Policies are defined using overrides instead of the policies
     # property because of an issue with the nixpkgs-firefox-darwin overlay.
     # See https://github.com/bandithedoge/nixpkgs-firefox-darwin/issues/7
-    package = (
-      pkgs.firefox-bin.overrideAttrs (_: {
-        # Theres a annoying-as-fuck bug with home-manager where the firefox
-        # overlay fails to evaluate if bandithedoge/nixpkgs-firefox-darwin is
-        # used. See:
-        # https://github.com/nix-community/home-manager/issues/6955#issuecomment-2878146879
-        override =
-          _:
-          pkgs.firefox-bin.overrideAttrs (_: {
-            postInstall = ''
-              resources="$out/Applications/Firefox.app/Contents/Resources"
-              distribution="$resources/distribution"
-              mkdir -p "$distribution" "$resources/defaults/pref"
-              echo -e 'pref("general.config.filename", "firefox.cfg");\npref("general.config.obscure_value", 0);' > "$resources/defaults/pref/autoconfig.js"
-              echo -e '// IMPORTANT: Managed through Nix\n${autoconfig}' > "$resources/firefox.cfg"
-              echo '${builtins.toJSON { policies = policies; }}' > "$distribution/policies.json"
-            '';
-          });
-      })
-    );
+    # HACK: Theres a annoying-as-fuck bug with home-manager where the firefox
+    # overlay fails to evaluate if bandithedoge/nixpkgs-firefox-darwin is
+    # used. A workaround seems to be the following `makeOverridable` +
+    # `overrideAttrs` mortal combat style combo.
+    package = (lib.makeOverridable ({ ... }: pkgs.firefox-bin) { }).overrideAttrs (_: {
+      postInstall = ''
+        resources="$out/Applications/Firefox.app/Contents/Resources"
+        distribution="$resources/distribution"
+        mkdir -p "$distribution" "$resources/defaults/pref"
+        echo -e 'pref("general.config.filename", "firefox.cfg");\npref("general.config.obscure_value", 0);' > "$resources/defaults/pref/autoconfig.js"
+        echo -e '// IMPORTANT: Managed through Nix\n${autoconfig}' > "$resources/firefox.cfg"
+        echo '${builtins.toJSON { policies = policies; }}' > "$distribution/policies.json"
+      '';
+    });
 
     profiles.default = {
       id = 0;

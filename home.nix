@@ -16,7 +16,7 @@
   imports = [
     ./git.nix
     ./zed.nix
-    # ./firefox.nix
+    ./firefox.nix
     ./wezterm.nix
     ./aerospace.nix
   ];
