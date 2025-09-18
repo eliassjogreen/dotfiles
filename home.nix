@@ -82,6 +82,7 @@
     pkg-config
     clang
     libiconv
+    zlib
 
     # Privacy utilities
     apg
