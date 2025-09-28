@@ -133,6 +133,7 @@
     # Rust
     rustup
     cargo-binstall
+    cargo-generate
 
     # Window manager
     aerospace
