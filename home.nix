@@ -135,6 +135,9 @@
     cargo-binstall
     cargo-generate
 
+    # Embedded
+    espflash
+
     # Window manager
     aerospace
     jankyborders
