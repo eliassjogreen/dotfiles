@@ -166,9 +166,9 @@
     pandoc
     typst
     hayagriva
+    libreoffice-bin
 
     # TODO:
-    # libreoffice-bin
     # hunspell
     # hunspellDicts.en_US
     # hunspellDicts.sv_SE
