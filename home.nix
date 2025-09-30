@@ -164,8 +164,10 @@
     # Note taking, office and educational tools
     obsidian
     pandoc
+    typst
+    hayagriva
+
     # TODO:
-    # typst
     # libreoffice-bin
     # hunspell
     # hunspellDicts.en_US
