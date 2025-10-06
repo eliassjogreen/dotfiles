@@ -13,6 +13,7 @@
       "sql"
       "jinja2"
       "astro"
+      "gleam"
     ];
 
     # This is the actual zed configuration
