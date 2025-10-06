@@ -138,6 +138,7 @@
     # Embedded
     espflash
     ldproxy
+    rpi-imager
 
     # Window manager
     aerospace
