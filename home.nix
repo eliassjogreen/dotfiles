@@ -93,10 +93,11 @@
     gnupg
     openssl
 
-    # Performance utilities
+    # Performance and profiling utilities
     hyperfine
     htop
     samply
+    valgrind
 
     # File system utilities
     ripgrep
