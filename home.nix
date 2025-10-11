@@ -97,7 +97,6 @@
     hyperfine
     htop
     samply
-    valgrind
 
     # File system utilities
     ripgrep
