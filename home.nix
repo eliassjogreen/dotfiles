@@ -177,8 +177,9 @@
     # gimp-with-plugins
     # inkscape-with-extensions
 
-    # Firefox
+    # Browsers
     firefox-bin
+    chromium
   ];
 
   # Automatically start the ollama daemon
