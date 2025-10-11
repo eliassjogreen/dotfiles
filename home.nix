@@ -179,7 +179,6 @@
 
     # Browsers
     firefox-bin
-    chromium
   ];
 
   # Automatically start the ollama daemon
