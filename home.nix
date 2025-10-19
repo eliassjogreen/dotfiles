@@ -177,6 +177,13 @@
     # gimp-with-plugins
     # inkscape-with-extensions
 
+    # CAD, 3D-printing, electronics, hardware, manufacturing, etc.
+    openscad
+    # BROKEN:
+    # kicad
+    # kikit
+    # prusa-slicer
+
     # Browsers
     firefox-bin
   ];
