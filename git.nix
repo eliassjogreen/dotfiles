@@ -11,7 +11,6 @@ in
 
     # Enable some git options
     lfs.enable = true;
-    diff-so-fancy.enable = true;
 
     ignores = [
       # Load global gitignore from githubs own list
@@ -22,9 +21,28 @@ in
       ".zed/"
     ];
 
-    # Configure default user name and email
-    userName = "Elias Sjögreen";
-    userEmail = "eliassjogreen1@gmail.com";
+    settings = {
+      # Configure default user name and email
+      user = {
+        name = "Elias Sjögreen";
+        email = "eliassjogreen1@gmail.com";
+      };
+
+      # Some useful aliases
+      alias = {
+        undo = "reset HEAD~1 --mixed";
+        latest-release = "!git tag --sort=committerdate | tail -1 | sed -n 's|releases/\\(.*\\)|\\1|p'";
+        next-release = "!if [[ \"$(git latest-release | cut -d '.' -f -2)\" == \"$(date '+%y.%m')\" ]]; then git latest-release | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g' ; else date '+%y.%m.1'; fi";
+        changelog = "!git fetch origin -q && git --no-pager log --first-parent --pretty=\"- [ ] %h - %s (%an)\" \"origin/\${1:-main}..origin/\${2:-dev}\" #";
+        release = "!gh pr create --base \${1:-main} --head \${2:-dev} --title \"$(git next-release)\" --body \"$(git changelog $1 $2)\" #";
+        nuke = "!git clean -xfd && git submodule foreach --recursive git clean -xfd && git reset --hard && git submodule foreach --recursive git reset --hard && git submodule update --init --recursive";
+      };
+
+      # Some sensible defaults
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      pull.rebase = true;
+    };
 
     # Configure signing
     signing.key = "A80BDCE5B456BF24";
@@ -68,25 +86,13 @@ in
         };
       }
     ];
-
-    # Some useful aliases
-    aliases = {
-      undo = "reset HEAD~1 --mixed";
-      latest-release = "!git tag --sort=committerdate | tail -1 | sed -n 's|releases/\\(.*\\)|\\1|p'";
-      next-release = "!if [[ \"$(git latest-release | cut -d '.' -f -2)\" == \"$(date '+%y.%m')\" ]]; then git latest-release | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g' ; else date '+%y.%m.1'; fi";
-      changelog = "!git fetch origin -q && git --no-pager log --first-parent --pretty=\"- [ ] %h - %s (%an)\" \"origin/\${1:-main}..origin/\${2:-dev}\" #";
-      release = "!gh pr create --base \${1:-main} --head \${2:-dev} --title \"$(git next-release)\" --body \"$(git changelog $1 $2)\" #";
-      nuke = "!git clean -xfd && git submodule foreach --recursive git clean -xfd && git reset --hard && git submodule foreach --recursive git reset --hard && git submodule update --init --recursive";
-    };
-
-    # Some sensible defaults
-    extraConfig = {
-      init.defaultBranch = "main";
-      push.autoSetupRemote = true;
-      pull.rebase = true;
-    };
   };
 
   # Enable gh cli
   programs.gh.enable = true;
+  # Fancy diffs
+  programs.diff-so-fancy = {
+    enable = true;
+    enableGitIntegration = true;
+  };
 }
