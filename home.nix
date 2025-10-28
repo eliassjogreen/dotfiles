@@ -167,6 +167,7 @@
     typst
     hayagriva
     libreoffice-bin
+    anki-bin
 
     # TODO:
     # hunspell
