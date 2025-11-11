@@ -137,6 +137,18 @@ in
           };
           run = "layout floating";
         }
+        {
+          "if" = {
+            app-id = "com.mojang.minecraftlauncher";
+          };
+          run = "layout floating";
+        }
+        {
+          "if" = {
+            app-id = "com.mojang.minecraftlauncher";
+          };
+          run = "layout floating";
+        }
       ];
 
       mode.main.binding = {
