@@ -16,12 +16,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Needed for properly registering apps on darwin
-    # NOTE: Hopefully solved within nix-darwin soon, see
-    # https://github.com/nix-darwin/nix-darwin/pull/1396
-    mac-app-util.url = "github:hraban/mac-app-util/link-contents";
-    mac-app-util.inputs.nixpkgs.follows = "nixpkgs";
-
     # Firefox?
     firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     firefox-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -38,7 +32,6 @@
       nur,
       nix-darwin,
       home-manager,
-      mac-app-util,
       firefox-darwin,
       zed-plex-mono,
       ...
@@ -207,14 +200,12 @@
         modules = [
           nix
           darwin
-          mac-app-util.darwinModules.default
           home-manager.darwinModules.home-manager
           {
             # Configure home-manager
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
-            home-manager.sharedModules = [ mac-app-util.homeManagerModules.default ];
 
             # Configure my user
             home-manager.users.elias = import ./home.nix;

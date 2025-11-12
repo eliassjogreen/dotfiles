@@ -115,7 +115,8 @@
 
     # AI/ML
     ollama
-    claude-code
+    # BROKEN:
+    # claude-code
 
     # Configuration utilities
     defaultbrowser
