@@ -14,6 +14,7 @@
       "jinja2"
       "astro"
       "gleam"
+      "openscad"
     ];
 
     # This is the actual zed configuration
