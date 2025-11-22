@@ -185,6 +185,7 @@
     # kicad
     # kikit
     # prusa-slicer
+    # orca-slicer
 
     # Browsers
     firefox-bin

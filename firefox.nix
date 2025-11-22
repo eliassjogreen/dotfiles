@@ -107,6 +107,9 @@ in
         pkgs.nur.repos.rycee.firefox-addons.consent-o-matic
         pkgs.nur.repos.ethancedwards8.firefox-addons.sponsorblock
 
+        # Search
+        pkgs.nur.repos.rycee.firefox-addons.kagi-search
+
         # Password manager
         pkgs.nur.repos.rycee.firefox-addons.bitwarden
 
@@ -155,6 +158,7 @@ in
 
         # Note taking, office and educational tools
         pkgs.nur.repos.rycee.firefox-addons.web-clipper-obsidian
+        pkgs.nur.repos.rycee.firefox-addons.kagi-translate
       ];
     };
   };
