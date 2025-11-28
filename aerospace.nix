@@ -49,8 +49,9 @@ in
 
   programs.aerospace = {
     enable = true;
+    launchd.enable = true;
 
-    userSettings = {
+    settings = {
       start-at-login = true;
 
       gaps = {

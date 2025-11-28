@@ -114,8 +114,8 @@
     netcat
 
     # AI/ML
-    ollama
     # BROKEN:
+    # ollama
     # claude-code
 
     # Configuration utilities
