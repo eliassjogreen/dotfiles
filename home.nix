@@ -30,12 +30,12 @@
 
     envExtra = ''
       # Needed for certain rust projects
-      export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig";
-      export RUSTFLAGS="-L${pkgs.libiconv}/lib -L${pkgs.zlib}/lib";
-      export LLVM_SYS_200_PREFIX="${pkgs.llvmPackages_20.llvm.dev}";
+      # export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig";
+      # export RUSTFLAGS="-L${pkgs.libiconv}/lib -L${pkgs.zlib}/lib";
+      # export LLVM_SYS_200_PREFIX="${pkgs.llvmPackages_20.llvm.dev}";
 
-      export LIBRARY_PATH="${pkgs.zlib}/lib:${pkgs.libiconv}/lib:$LIBRARY_PATH"
-      export DYLD_LIBRARY_PATH="${pkgs.zlib}/lib:${pkgs.libiconv}/lib:$DYLD_LIBRARY_PATH"
+      # export LIBRARY_PATH="${pkgs.zlib}/lib:${pkgs.libiconv}/lib:$LIBRARY_PATH"
+      # export DYLD_LIBRARY_PATH="${pkgs.zlib}/lib:${pkgs.libiconv}/lib:$DYLD_LIBRARY_PATH"
 
       # Set default editor
       export EDITOR=zeditor
@@ -84,8 +84,8 @@
     coreutils
     pkg-config
     clang
-    libiconv
-    zlib
+    # libiconv
+    # zlib
 
     # Privacy utilities
     apg
@@ -169,6 +169,7 @@
     hayagriva
     libreoffice-bin
     anki-bin
+    zotero
 
     # TODO:
     # hunspell
